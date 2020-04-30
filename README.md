@@ -35,3 +35,6 @@ A very simple script for managing self hosted podcasts. Probably can be used for
 - Admin Template: https://startbootstrap.com/templates/simple-sidebar/
 - Authentication code: https://codeshack.io/secure-login-system-php-mysql/#creatingtheloginformdesign
 - MP3 code: http://www.zedwood.com/article/php-calculate-duration-of-mp3
+- Icons: https://www.flaticon.com/authors/freepik
+- Site Template: https://startbootstrap.com/template-overviews/scrolling-nav
+- Audio Player: https://github.com/greghub/green-audio-player

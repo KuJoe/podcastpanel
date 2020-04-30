@@ -1,0 +1,50 @@
+/*!
+ * Start Bootstrap - Scrolling Nav (https://startbootstrap.com/template-overviews/scrolling-nav)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-scrolling-nav/blob/master/LICENSE)
+ */
+header {
+  padding: 156px 0 100px;
+}
+
+section {
+  padding: 150px 0;
+}
+
+.socialicon {
+	width: 60px;
+	height: 60px;
+	padding: 10px;
+}
+
+.playerbox {
+	position:relative;
+	border: 2px solid green;
+	width: 404px;
+	margin: auto;
+	text-align: left;
+}
+
+.playerboxtext {
+	padding:0 10px;
+	
+}
+
+.playerboximg {
+	width:16px;
+	height:16px;
+	margin:10px;
+}
+
+.playerboxart {
+	height:100px;
+	width:100px;
+	float:right;
+	margin: 0 10px 10px;
+}
+
+.latest-episode {
+	position: relative;
+	bottom: 0;
+	left: 0;
+}

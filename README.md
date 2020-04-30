@@ -8,14 +8,14 @@ A very simple script for managing self hosted podcasts. Probably can be used for
 - Comment management for admins
 - Login/Authentication for admins
 - Admin Logs
+- Installation script
 
 # In Progress
-- Public facing site (needs to be re-written with a template that doesn't require a paid license)
+- Public facing site (still needs work along with other pages besides the main page)
 - Comment system
 - Tags/Categories/Seasons
 - Social media integration (primarily Twitter)
 - Play/Download tracking for episodes
-- Installation script
 - Better organization and comments in the code
 
 # Requirements
@@ -25,7 +25,11 @@ A very simple script for managing self hosted podcasts. Probably can be used for
 - Set the upload_max_filesize value in your php.ini large enough for your podcast uploads.
 
 # Installation
-Working on an install script now for the DB stuffs.
+1. Download the files from GitHub.
+2. Edit the config.php file with your database settings and other information.
+3. Upload all of the files to your webhost.
+4. Navigate to the install.php file in the root directory.
+5. Login to the admin directory with the username and password provided on the install script and start adding podcasts!
 
 # Credits
 - Admin Template: https://startbootstrap.com/templates/simple-sidebar/

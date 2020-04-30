@@ -11,7 +11,7 @@ $dbpass = 'password';
 $db = 'database';
 
 //Settings
-$email = 'noreply@example.com'; //System generated e-mail are sent from this address
+$fromemail = 'noreply@example.com'; //System generated e-mail are sent from this address
 
 //Social Media
 $twitter = '';

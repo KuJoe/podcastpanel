@@ -60,7 +60,7 @@ function addep($epname, $epdesc, $filename, $size, $duration, $tags, $art, $uid)
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();	
 		return $err;
@@ -83,7 +83,7 @@ function addep($epname, $epdesc, $filename, $size, $duration, $tags, $art, $uid)
 	$nextso = mysqli_query($conn, "SELECT sortorder FROM episodes ORDER BY sortorder DESC LIMIT 1");
     if(mysqli_num_rows($nextso) > 0) {
 		$row = mysqli_fetch_assoc($nextso);
-		$next = $row['sortorder'];
+		$next = $row['sortorder'] + 1;
     } else {
 		$next = "1";
 	}
@@ -115,7 +115,7 @@ function editep($id, $epname, $epdesc, $tags, $order, $uid) {
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();	
 		return $err;
@@ -148,7 +148,7 @@ function getEpisode($id){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -185,7 +185,7 @@ function getEpisodes($pageno){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -211,7 +211,7 @@ function pagination($pageno,$table){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -229,7 +229,7 @@ function getProfile($uid){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -262,7 +262,7 @@ function getUsername($uid){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -280,7 +280,7 @@ function getLogs($pageno){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -298,7 +298,7 @@ function getUsers($pageno){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -327,7 +327,7 @@ function getComments($pageno){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -353,7 +353,7 @@ function toggleState($id, $table, $uid) {
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();
 		return $err;
@@ -402,7 +402,7 @@ function adduser($username, $email, $uid) {
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();	
 		return $err;
@@ -438,7 +438,7 @@ function adduser($username, $email, $uid) {
 	if($stmt->execute()){
 		$headers = "MIME-Version: 1.0" . "\r\n";
 		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-		$headers .= 'From: <'.$email.'>. \r\n';
+		$headers .= 'From: <'.$fromemail.'>. \r\n';
 		
 		$message = '<p>A new user account was created for you.<br />
 					You can login with the following information:<br >
@@ -462,33 +462,33 @@ function adduser($username, $email, $uid) {
 	
 }
 
-function edituser($id, $username, $email, $displayname, $title, $twitter, $uid) {
+function edituser($id, $username, $newemail, $displayname, $title, $twitter, $uid) {
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();	
 		return $err;
 	}
 	
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+	if (!filter_var($newemail, FILTER_VALIDATE_EMAIL)) {
 	  $err = "Invalid email format";
 	  return $err;
 	}
 	
-	$userchk = mysqli_query($conn, "SELECT * FROM accounts WHERE (username='$username' OR email='$email') AND id != '$id'");
+	$userchk = mysqli_query($conn, "SELECT * FROM accounts WHERE (username='$username' OR email='$newemail') AND id != '$id'");
     if(mysqli_num_rows($userchk) > 0) {
 		$err = "User exists, try a different username or e-mail address.";
 		$conn->close();	
 		return $err;
     }
 
-	$avatar = md5(strtolower(trim($email)));
+	$avatar = md5(strtolower(trim($newemail)));
 	
 	$stmt = $conn->prepare("UPDATE `accounts` SET username = ?, email = ?, displayname = ?, title = ?, twitter = ?, avatar = ? WHERE id = ?");
 	
-	$stmt->bind_param("ssssssi", $username, $email, $displayname, $title, $twitter, $avatar, $id);
+	$stmt->bind_param("ssssssi", $username, $newemail, $displayname, $title, $twitter, $avatar, $id);
 	
 	if($stmt->execute()){
 		$msg = 'User edited! ('.$id.' - '.$username.')';
@@ -509,7 +509,7 @@ function chgpass($id, $username, $pwd, $uid) {
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 		$err = "Failed to connect to MySQL: " . $conn->connect_error;
 		$conn->close();	
 		return $err;
@@ -543,7 +543,7 @@ function latestComments(){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -564,7 +564,7 @@ function latestEpisodes(){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
@@ -587,13 +587,58 @@ function latestLogs(){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
 
-	if ($conn === false){
+	if($conn->connect_error){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 		
 	$res = mysqli_query($conn, "SELECT * FROM logs ORDER BY logid DESC LIMIT 5");
 	while ($row = $res->fetch_assoc()) {
 		echo '<tr><td>'.$row['msg'].'</td><td><a href="profile.php?id='.$row['uid'].'">'.getUsername($row['uid']).'</a></td><td>'.$row['ipaddr'].'</td><td>'.date("m/d/Y", strtotime($row['tstamp'])).'</td></tr>';
+	}
+	$conn->close();	
+}
+
+function latestEp(){
+	require('config.php');
+	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+
+	if($conn->connect_error){
+	  echo "Failed to connect to MySQL: " . $conn->connect_error;
+	}
+	
+	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE status='1' ORDER BY sortorder DESC LIMIT 1");
+	if(mysqli_num_rows($res) > 0) {
+		$out = mysqli_fetch_assoc($res);
+		$size = round($out['size'] / 1024 / 1024,2) . 'MB';
+		$latest['epname'] = $out['epname'];
+		$latest['epdesc'] = $out['epdesc'];
+		$latest['duration'] = $out['duration'];
+		$latest['size'] = $size;
+		$latest['filename'] = $out['filename'];
+		$latest['publishdate'] = $out['publishdate'];
+		$latest['art'] = $out['art'];
+		return $latest;
+	} else {
+		return false;
+	}
+	$conn->close();	
+}
+
+function listEpisodes(){
+	require('config.php');
+	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+
+	if($conn->connect_error){
+	  echo "Failed to connect to MySQL: " . $conn->connect_error;
+	}
+	
+	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE status='1' ORDER BY sortorder DESC");
+	if(mysqli_num_rows($res) > 0) {
+		while ($row = $res->fetch_assoc()) {
+			echo '<tr><td><a href="listen.php?id='.$row['id'].'">'.$row['epname'].'</a></td><td>'.$row['epdesc'].'</td><td>'.date("m/d/Y", strtotime($row['publishdate'])).'</td></tr>';
+		}
+	} else {
+		echo '<tr><td colspan="5" style="text-align:center;"><strong>Nothing uploaded yet.</strong></td></tr>';
 	}
 	$conn->close();	
 }

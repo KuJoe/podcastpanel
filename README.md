@@ -1,6 +1,9 @@
 # PodcastPanel
 A very simple script for managing self hosted podcasts. Probably can be used for other stuff too.
 
+# Demo
+https://podcastpanel.kujoe.net
+
 # Features
 - Upload episodes with artwork (calculates duration and file size automatically)
 - Edit/Publish/Hide episodes
@@ -9,9 +12,9 @@ A very simple script for managing self hosted podcasts. Probably can be used for
 - Login/Authentication for admins
 - Admin Logs
 - Installation script
+- Public facing site
 
 # In Progress
-- Public facing site (still needs work along with other pages besides the main page)
 - Comment system
 - Tags/Categories/Seasons
 - Social media integration (primarily Twitter)
@@ -29,7 +32,8 @@ A very simple script for managing self hosted podcasts. Probably can be used for
 2. Edit the config.php file with your database settings and other information.
 3. Upload all of the files to your webhost.
 4. Navigate to the install.php file in the root directory.
-5. Login to the admin directory with the username and password provided on the install script and start adding podcasts!
+5. Delete install.php once completed.
+6. Login to the admin directory with the username and password provided on the install script and start adding podcasts!
 
 # Credits
 - Admin Template: https://startbootstrap.com/templates/simple-sidebar/

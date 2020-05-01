@@ -18,22 +18,22 @@
 <html lang="en">
 
 <head>
+	<!-- https://github.com/KuJoe/podcastpanel -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<title>PodcastPanel</title>
 
-  <title>PodcastPanel</title>
+	<!-- Bootstrap core CSS -->
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap core CSS -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="assets/css/scrolling-nav.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="assets/css/scrolling-nav.css" rel="stylesheet">
-
-  <!-- CSS for audio player (https://github.com/greghub/green-audio-player) -->
-  <link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
+	<!-- CSS for audio player (https://github.com/greghub/green-audio-player) -->
+	<link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
 
 </head>
 
@@ -71,7 +71,7 @@
 		<br />
 		<div class="playerbox" style="display:<?php echo $showplayer; ?>;">
 			<div class="playerboxtext">
-				<h3><?php echo $latest['epname']; ?></h3>
+				<h3><a href="listen.php?id=<?php echo $latest['id']; ?>"><?php echo $latest['epname']; ?></a></h3>
 				<?php echo $latest['epdesc']; ?>
 			</div>
 			<hr />
@@ -84,6 +84,14 @@
 					<source src="<?php echo $target_dir; ?>/<?php echo $latest['filename']; ?>" type="audio/mpeg">
 				</audio>
 			</div>
+		</div>
+		<br />
+		<div class="col-lg-6 mx-auto">
+			<a href="<?php echo $rss; ?>" target="_blank" /><img class="socialicon" src="assets/rss.png" title="RSS Feed" /></a>
+			<a href="<?php echo $apple; ?>" target="_blank" /><img class="socialicon" src="assets/apple.png" title="Apple Podcast" /></a>
+			<a href="<?php echo $spotify; ?>" target="_blank" /><img class="socialicon" src="assets/spotify.png" title="Spotify" /></a>
+			<a href="<?php echo $google; ?>" target="_blank" /><img class="socialicon" src="assets/google.png" title="Google Play" /></a>
+			<a href="<?php echo $youtube; ?>" target="_blank" /><img class="socialicon" src="assets/youtube.png" title="YouTube" /></a>
 		</div>
 	</div>
   </header>
@@ -149,7 +157,7 @@
   <!-- Footer -->
   <footer class="py-2 bg-dark">
     <div class="container">
-      <p class="m-0 text-center text-white" style="font-size:x-small;">Copyright &copy; Your Website 2019<br />Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
+      <p class="m-0 text-center text-white" style="font-size:x-small;">Copyright &copy; Your Website 2019 (<a href="https://github.com/KuJoe/podcastpanel" target="_blank" />!</a>)<br />Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
     </div>
     <!-- /.container -->
   </footer>
@@ -171,7 +179,5 @@
       new GreenAudioPlayer('.latest-episode', { showTooltips: true, showDownloadButton: true, enableKeystrokes: true });
     });
   </script>
-
 </body>
-
 </html>

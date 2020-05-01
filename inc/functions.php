@@ -598,6 +598,33 @@ function latestLogs(){
 	$conn->close();	
 }
 
+function getep($id){
+	require('config.php');
+	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+
+	if($conn->connect_error){
+	  echo "Failed to connect to MySQL: " . $conn->connect_error;
+	}
+	
+	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE id='$id' AND status='1'");
+	if(mysqli_num_rows($res) > 0) {
+		$out = mysqli_fetch_assoc($res);
+		$size = round($out['size'] / 1024 / 1024,2) . 'MB';
+		$ep['id'] = $id;
+		$ep['epname'] = $out['epname'];
+		$ep['epdesc'] = $out['epdesc'];
+		$ep['duration'] = $out['duration'];
+		$ep['size'] = $size;
+		$ep['filename'] = $out['filename'];
+		$ep['publishdate'] = $out['publishdate'];
+		$ep['art'] = $out['art'];
+		return $ep;
+	} else {
+		return false;
+	}
+	$conn->close();	
+}
+
 function latestEp(){
 	require('config.php');
 	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
@@ -610,6 +637,7 @@ function latestEp(){
 	if(mysqli_num_rows($res) > 0) {
 		$out = mysqli_fetch_assoc($res);
 		$size = round($out['size'] / 1024 / 1024,2) . 'MB';
+		$latest['id'] = $out['id'];
 		$latest['epname'] = $out['epname'];
 		$latest['epdesc'] = $out['epdesc'];
 		$latest['duration'] = $out['duration'];
@@ -618,6 +646,24 @@ function latestEp(){
 		$latest['publishdate'] = $out['publishdate'];
 		$latest['art'] = $out['art'];
 		return $latest;
+	} else {
+		return false;
+	}
+	$conn->close();	
+}
+
+function latestEpID(){
+	require('config.php');
+	$conn = new mysqli($dbhost, $dbuser, $dbpass, $db);
+
+	if($conn->connect_error){
+	  echo "Failed to connect to MySQL: " . $conn->connect_error;
+	}
+	
+	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE status='1' ORDER BY sortorder DESC LIMIT 1");
+	if(mysqli_num_rows($res) > 0) {
+		$out = mysqli_fetch_assoc($res);
+		return $out['id'];
 	} else {
 		return false;
 	}

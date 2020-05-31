@@ -102,10 +102,10 @@ function addep($epname, $epdesc, $filename, $size, $duration, $tags, $art, $uid)
 		$conn->close();	
 		return true; 
 	}else{
+		$err = 'Unable to add episode to database ('.$stmt->error.')';
+		logit($uid,$err);
 		$stmt->close();
 		$conn->close();
-		$err = 'Unable to add episode to database ('.$id.')';
-		logit($uid,$err);
 		return $err;
 	}
 	
@@ -678,10 +678,10 @@ function listEpisodes(){
 	  echo "Failed to connect to MySQL: " . $conn->connect_error;
 	}
 	
-	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE status='1' ORDER BY sortorder DESC");
+	$res = mysqli_query($conn, "SELECT * FROM episodes WHERE status='1' ORDER BY sortorder ASC");
 	if(mysqli_num_rows($res) > 0) {
 		while ($row = $res->fetch_assoc()) {
-			echo '<tr><td><a href="listen.php?id='.$row['id'].'">'.$row['epname'].'</a></td><td>'.$row['epdesc'].'</td><td>'.date("m/d/Y", strtotime($row['publishdate'])).'</td></tr>';
+			echo '<tr><td><a href="episode.php?id='.$row['id'].'">'.$row['epname'].'</a></td><td>'.$row['epdesc'].'</td><td>'.date("m/d/Y", strtotime($row['publishdate'])).'</td></tr>';
 		}
 	} else {
 		echo '<tr><td colspan="5" style="text-align:center;"><strong>Nothing uploaded yet.</strong></td></tr>';

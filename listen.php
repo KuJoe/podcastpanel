@@ -22,23 +22,37 @@
 <html lang="en">
 
 <head>
-  <!-- https://github.com/KuJoe/podcastpanel -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+	<!-- https://github.com/KuJoe/podcastpanel -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="<?php echo $ep['epdesc']; ?>">
+	<meta name="author" content="">
 
-  <title>PodcastPanel</title>
+	<title><?php echo $ep['epname']; ?></title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap core CSS -->
+	<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="assets/css/scrolling-nav.css" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link href="assets/css/scrolling-nav.css" rel="stylesheet">
 
-  <!-- CSS for audio player (https://github.com/greghub/green-audio-player) -->
-  <link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
+	<!-- CSS for audio player (https://github.com/greghub/green-audio-player) -->
+	<link rel="stylesheet" type="text/css" href="assets/css/green-audio-player.css">
 
+	<meta property="og:url"           content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" />
+	<meta property="og:type"          content="website" />
+	<meta property="og:title"         content="<?php echo $ep['epname']; ?>" />
+	<meta property="og:description"   content="<?php echo $ep['epdesc']; ?>" />
+	<meta property="og:image"         content="<?php echo 'https://' . $_SERVER['HTTP_HOST']; ?>/assets/logo.png" />
+	<!-- Load Facebook SDK for JavaScript -->
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+  	  var js, fjs = d.getElementsByTagName(s)[0];
+  	  if (d.getElementById(id)) return;
+  	  js = d.createElement(s); js.id = id;
+  	  js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+  	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
 </head>
 
 <body id="page-top">
@@ -86,12 +100,22 @@
 				<a href="<?php echo $google; ?>" target="_blank" /><img class="socialicon" src="assets/google.png" title="Google Play" /></a>
 				<a href="<?php echo $youtube; ?>" target="_blank" /><img class="socialicon" src="assets/youtube.png" title="YouTube" /></a>
 			</div>
-      </div>
+			<div class="col-lg-6 mx-auto" style="text-align:center;">
+				<div class="fb-share-button" 
+					data-href="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>" 
+					data-layout="button_count">
+				</div>
+				<div style="padding:5px;">
+				<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Hey! Check out this podcast!">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></a>
+				</div>
+			</div>
+		</div>
+	  </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-2 bg-dark">
+  <footer class="py-2 bg-dark fixed-bottom">
     <div class="container">
       <p class="m-0 text-center text-white" style="font-size:x-small;">Copyright &copy; Your Website 2019 (<a href="https://github.com/KuJoe/podcastpanel" target="_blank" />!</a>)<br />Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a></p>
     </div>

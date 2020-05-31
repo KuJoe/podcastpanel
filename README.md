@@ -1,4 +1,4 @@
-# PodcastPanel
+# PodcastPanel 1.01
 A very simple script for managing self hosted podcasts. Probably can be used for other stuff too.
 
 # Demo
@@ -13,11 +13,11 @@ https://podcastpanel.kujoe.net
 - Admin Logs
 - Installation script
 - Public facing site
+- Social media integration
 
 # In Progress
 - Comment system
 - Tags/Categories/Seasons
-- Social media integration (primarily Twitter)
 - Play/Download tracking for episodes
 - Better organization and comments in the code
 
